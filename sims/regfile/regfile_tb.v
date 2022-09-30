@@ -3,8 +3,15 @@
 //	regfile_tb.v
 //		Testbench for Register file for the RV32I
 //
-//	By: Bryce Keen	Last Modified: 09/29/2022
-//
+
+// -------------------------------- //
+//	By: Bryce Keen	
+//	Created: 09/29/2022
+// -------------------------------- //
+//	Last Modified: 09/30/2022
+
+// Change Log:	NA
+
 
 
 module regfile_tb();
@@ -30,18 +37,21 @@ module regfile_tb();
 		.rdout2(rdout2));
 		
 	initial begin
+		reset <= 1;
+		#2
+		reset <= 0;
 		#10
-		rs1 = 1;
-		rs2 = 2;
-		rd = 3;
+		rs1 <= 1;
+		rs2 <= 2;
+		rd <= 3;
 		#10
-		wrs3 = 16;
-		we = 1;
+		wrs3 <= 16;
+		we <= 1;
+		#2
+		we <= 0;
+		rs1 <= 3;
 		#10
-		we = 0;
-		rs1 = 3;
-		#10
-		reset = 1;
+		reset <= 1;
 		#10		
 		$finish;
 	end
