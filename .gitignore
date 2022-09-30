@@ -1,0 +1,9 @@
+
+*.mti
+*.mpf
+*.wlf
+*.qdb
+sims/regfile/work/_info
+*.qpg
+*.qtl
+sims/regfile/work/_vmake
