@@ -7,3 +7,5 @@ sims/regfile/work/_info
 *.qpg
 *.qtl
 sims/regfile/work/_vmake
+sims/alu32/work/_vmake
+sims/alu32/work/_info
