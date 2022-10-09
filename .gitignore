@@ -9,3 +9,5 @@ sims/regfile/work/_info
 sims/regfile/work/_vmake
 sims/alu32/work/_vmake
 sims/alu32/work/_info
+sims/imem/work/_info
+sims/imem/work/_vmake
