@@ -15,7 +15,7 @@
 
 module imem(a, rd);
 	input wire [31:0]	a;
-	output reg [31:0]	rd;
+	output wire [31:0]	rd;
 	
 	reg [31:0] mem [63:0];
 	
@@ -30,9 +30,6 @@ module imem(a, rd);
 		mem[7] = 32'hF0000000;
 	end
 	
-	
-	always @(a) begin
-		rd <= mem[a[31:2]];
-	end
+	assign rd = mem[a[31:2]];
 
 endmodule

@@ -11,3 +11,5 @@ sims/alu32/work/_vmake
 sims/alu32/work/_info
 sims/imem/work/_info
 sims/imem/work/_vmake
+sims/dmem/work/_info
+sims/dmem/work/_vmake
