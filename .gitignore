@@ -13,3 +13,6 @@ sims/imem/work/_info
 sims/imem/work/_vmake
 sims/dmem/work/_info
 sims/dmem/work/_vmake
+*.bak
+sims/extend/work/_vmake
+sims/extend/work/_info
