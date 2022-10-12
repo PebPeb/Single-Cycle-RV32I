@@ -13,7 +13,7 @@
 // Change Log:	NA
 
 module extend_tb();
-	reg [1:0]		ImmSrc;
+	reg [2:0]		ImmSrc;
 	reg [31:0]		Instruction;
 	wire [31:0]		ExtImm;
 
@@ -25,10 +25,10 @@ module extend_tb();
 		);
 
 	initial begin
-		ImmSrc <= 2'b00;
+		ImmSrc <= 3'b000;
 		Instruction <= 32'h0FF00FF0;
 		#2
-		ImmSrc <= 2'b01;
+		ImmSrc <= 3'b001;
 		Instruction <= 32'hFFFFFF80;
 		#2
 		$finish;
