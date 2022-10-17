@@ -16,3 +16,5 @@ sims/dmem/work/_vmake
 *.bak
 sims/extend/work/_vmake
 sims/extend/work/_info
+sims/flopr/work/_info
+sims/flopr/work/_vmake
