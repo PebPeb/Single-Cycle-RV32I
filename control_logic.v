@@ -8,7 +8,7 @@
 //	By: Bryce Keen	
 //	Created: 11/24/2022
 // -------------------------------- //
-//	Last Modified: 11/24/2022
+//	Last Modified: 12/04/2022
 
 // Change Log:	NA
 
@@ -110,19 +110,42 @@ module control_logic(inst);
                 endcase
             7'b0001111:
                 if (inst[31:28] == 0 and inst[19:7] == 0) begin
-                    // FENCE
+                    // FENCELL
                 end 
                 else if (inst[31:7] == 25'h0000020) begin
                     // FENCE.I
                 end
             7'b1110011:
-                if (inst[31:7] == 0) begin
-                    // ECALL
-                end 
-                else if (inst[31:7] == 25'h0002000) begin
-                    // EBREAK
-                end
+				case (funct3)
+					3'b000:
+						if (inst[11:7] == 0 and inst[19:15] == 0 and inst[31:20] == 0) begin
+											// ECALL
+						end
+						else if (inst[11:7] == 0 and inst[19:15] == 0 and inst[31:20] == 1) begin
+						                    // EBREAK
+						end
+					3'b001:					// CSRRW
+					3'b010:					// CSRRS
+					3'b011:					// CSRRC
+					3'b101:					// CSRRWI
+					3'b110:					// CSRRSI
+					3'b111:					// CSRRCI
+				endcase
         endcase
     end
-
 endmodule
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
