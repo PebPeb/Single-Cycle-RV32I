@@ -8,7 +8,7 @@
 //	By: Bryce Keen	
 //	Created: 11/24/2022
 // -------------------------------- //
-//	Last Modified: 12/04/2022
+//	Last Modified: 01/14/2023
 
 // Change Log:	NA
 
@@ -27,17 +27,60 @@ module control_logic(inst);
     always @(inst) begin
         case (opcode)
             7'b0110111:         // LUI
+                
+                /*  LUI places the U-immediate value in the 
+                top 20 bits of the destination register rd, 
+                filling in the lowest 12 bits with zeros. */
+
             7'b0010111:         // AUIPC
+
+                /* AUIPC forms a 32-bit offset from the 20-bit 
+                U-immediate, filling in the lowest 12 bits with
+                zeros, adds this offset to the pc, then places 
+                the result in register rd. */
+
             7'b1101111:         // JAL
+
+                /* signed offset in multiples of 2 bytes. The 
+                offset is sign-extended and added to the pc to form the
+                jump target address. JAL stores the address of the
+                instruction following the jump (pc+4) into register rd.*/
+
+
             7'b1100111:         // JALR
+
+                /* The target address is obtained by adding the 12-bit 
+                signed I-immediate to the register rs1, then setting the
+                least-significant bit of the result to zero The address 
+                of the instruction following the jump (pc+4) is written 
+                to register rd*/
+
             7'b1100011:
                 case (funct3)
                     3'b000:     // BEQ
+                        /*  BEQ take the branch if registers rs1 and rs2
+                        are equal */
+
                     3'b001:     // BNE
+                        /*  BNE take the branch if registers rs1 and rs2
+                        are equal */
+
                     3'b100:     // BLT
+                        /*  BLT take the branch if rs1 is less than rs2, using
+                        signed comparison */
+
                     3'b101:     // BGE
+                        /* BGE take the branch if rs1 is greater than or equal to rs2, 
+                        using signed comparison */
+
                     3'b110:     // BLTU
+                        /*  BLTU take the branch if rs1 is less than rs2, using
+                        unsigned comparison */
+
                     3'b111:     // BGEU
+                        /* BGEU take the branch if rs1 is greater than or equal to rs2, 
+                        using unsigned comparison */
+
                 endcase
             7'b0000011:
                 case (funct3)
@@ -134,18 +177,4 @@ module control_logic(inst);
         endcase
     end
 endmodule
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

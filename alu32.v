@@ -30,13 +30,17 @@ module alu32(a, b, ALUControl, result);
 			4'b0010: result <= a & b;
 			4'b0011: result <= a | b;
 			4'b0100: result <= a ^ b;
-			4'b0101: result <= a << b;		// Unsigned Left shift
-			4'b0110: result <= a >> b;		// Unsigned Right shift
-			4'b0111: result <= a >>> b;		// Signed Right shift
+			4'b0101: result <= a << b[4:0];		// Unsigned Left shift
+			4'b0110: result <= a >> b[4:0];		// Unsigned Right shift
+			4'b0111: result <= a >>> b[4:0];	// Signed Right shift
 			4'b1000: result <= (a < b) ? 1 : 0;							// Less Than Unsigned
 			4'b1001: result <= (a_signed < b_signed) ? 1 : 0;			// Less Than Signed
 			4'b1010: result <= (a >= b) ? 1 : 0;						// Greater Than or Equal Unsigned
 			4'b1011: result <= (a_signed >= b_signed) ? 1 : 0;			// Greater Than or Equal Signed
+			4'b1100: result <= (a_signed + b_signed) & 32'hFFFFFFFE;	// JARL
+			//4'b1101: result <= a << b[4:0];		// Unsigned Left shift
+			//4'b1110: result <= a >> b[4:0];		// Unsigned Right shift
+			//4'b1111: result <= a >>> b[4:0];	// Signed Right shift			
 			default: result <= 32'hXXXXXXXX;
 		endcase
 	end
