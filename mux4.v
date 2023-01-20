@@ -13,12 +13,12 @@
 // Change Log:	NA
 
 
-module mux2(a, b, c, d, sel, y);
+module mux4(a, b, c, d, sel, y);
 	parameter WIDTH = 32;
 	
 	input wire [WIDTH - 1:0]	a, b, c, d;
     input wire [1:0]			sel;
-	output wire [WIDTH - 1:0]	y;
+	output reg [WIDTH - 1:0]	y;
 
     always @(*) begin
         case (sel)

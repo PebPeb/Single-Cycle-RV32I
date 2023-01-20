@@ -25,29 +25,29 @@ module imem_tb();
 		
 	initial begin
 		a <= 0;
-		
 		#2
 		
 		a <= 4;
-		
 		#2
 		
 		a <= 8;
-		
 		#2
 		
 		a <= 12;
-		
 		#2	
 		
 		a <= 16;
-		
 		#2
 		
 		a <= 20;
-		
 		#2	
+		
 		$finish;
 	end
 	
+	initial begin
+		$dumpfile("imem_tb.vcd");
+		$dumpvars(0, imem_tb);
+	end
+
 endmodule

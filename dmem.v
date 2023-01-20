@@ -20,7 +20,7 @@ module dmem(a, rd, wd, clk, we, mode, reset);
 	input wire [31:0]	a, wd;
 	output reg [31:0]	rd = 0;
 	
-	reg [7:0] mem [255:0];
+	reg [7:0] mem [0:255];
 	
 	integer i;
 	initial begin
