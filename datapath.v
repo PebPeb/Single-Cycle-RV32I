@@ -15,7 +15,7 @@
 module datapath(clk, reset, regWE, rs1sel, 
                 rs2sel, regsel, PCsel, ImmSel, 
                 ALUControl,  Instr,  dmemData, 
-                pc, dmemAdrs, ALUout);
+                pc, dmemrs2, ALUout);
 
     input clk, reset;
 
@@ -27,7 +27,7 @@ module datapath(clk, reset, regWE, rs1sel,
     input [31:0] Instr;
     input [31:0] dmemData;
 
-    output [31:0]   pc, dmemAdrs, ALUout; 
+    output [31:0]   pc, dmemrs2, ALUout; 
 
     wire [31:0]     PC_now, PC_next;
     wire [31:0]     rdout1, rdout2, wrs3;
@@ -45,7 +45,7 @@ module datapath(clk, reset, regWE, rs1sel,
         .reset(reset),
         .rdout1(rdout1),
         .rdout2(rdout2));
-    assign dmemAdrs = rdout2;
+    assign dmemrs2 = rdout2;
 
     flopr #(.WIDTH(32)) pcREG (
         .d(PC_now), 

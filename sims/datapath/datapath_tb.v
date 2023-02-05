@@ -4,7 +4,7 @@ module datapath_tb();
     reg clk;
     reg reset;
 
-    wire [31:0] pc, Instr, dmemAdrs, dmemData;
+    wire [31:0] pc, Instr, dmemrs2, dmemData;
 
     //initial clk <= 0;
 	always begin
@@ -22,9 +22,9 @@ module datapath_tb();
     reg [2:0] mode;
 
     dmem dataMemory (
-        .a(dmemAdrs), 
+        .a(ALUResults), 
         .rd(dmemData), 
-        .wd(ALUResults), 
+        .wd(dmemrs2), 
         .clk(clk), 
         .we(we),                // Control Logic
         .mode(mode),            // Control Logic
@@ -49,7 +49,7 @@ module datapath_tb();
         .Instr(Instr),  
         .dmemData(dmemData), 
         .pc(pc), 
-        .dmemAdrs(dmemAdrs),
+        .dmemrs2(dmemrs2),
         .ALUout(ALUResults));
 
     initial begin
