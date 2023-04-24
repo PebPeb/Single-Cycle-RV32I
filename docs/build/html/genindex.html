@@ -6,6 +6,7 @@
   <title>Index &mdash; Single-Cycle-RV32I 1.0.4 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/NavBar.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -20,8 +21,39 @@
     <link rel="search" title="Search" href="search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
+
+<body class="wy-body-for-nav">
+  <div style="height: 100%; display: flex; flex-direction: column;">
+  
+    <nav class="navbar">
+      <ul>
+        <li>
+          <div class="tool-bar-title">Bryce Keen</div>
+        </li>
+        <li style="margin-left: auto;">
+          <a src="/" style="text-decoration: none;">
+            <div class="link-container">Home</div>
+          </a>
+         </li>
+        <li>
+          <a src="/about" style="text-decoration: none;">
+            <div class="link-container">About</div>
+          </a>
+        </li>
+        <li>
+          <a src="/contact" style="text-decoration: none;">
+            <div class="link-container">Contact</div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+     
+  <div id="mydata" class="wy-grid-for-nav">
+    <script>
+      const fixedHeaderHeight = document.getElementById('navbar').clientHeight;
+      document.getElementById('mydata').style.marginTop = `${fixedHeaderHeight}px`;
+
+    </script>
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
@@ -95,11 +127,14 @@
       </div>
     </section>
   </div>
+
+
   <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
-
+  </div>
 </body>
+
 </html>

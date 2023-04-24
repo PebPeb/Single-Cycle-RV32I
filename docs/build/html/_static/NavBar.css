@@ -1,0 +1,67 @@
+.navbar {
+    display: flex;
+    /*justify-content: flex-end;*/
+    /*align-items: center;*/
+
+    min-width: 940px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+    background-image: linear-gradient(to bottom right, rgb(9,19,28), rgb(19,35,52));
+    /*background-color: rgb(9,19,28);*/
+
+
+  }
+  
+  .navbar ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0 0 0 0;
+  }
+  
+  
+  .link-container {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    color: rgb(169, 177, 186);
+    /*color: rgb(128, 144, 163);*/
+    font-size: 18px;
+
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: "NavBar";
+    /*font-family: "Franklin Gothic Medium";*/
+
+    transition: background-color 0.2s ease-in-out;
+  }
+
+
+  .link-container:hover {
+    background-color: rgba(252, 252, 252, 0.05);
+  }
+
+
+  .tool-bar-title {
+    display: flex;
+    align-items: center;
+    width: auto;
+    
+    height: 50px;
+      
+
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgb(169, 177, 186);
+    font-size: 24px;
+  }
+
+  @font-face {
+    font-family: NavBar;
+    src: url(../_themes/sphinx_rtd_theme_navbar/static/css/fonts/Franklin-Gothic-Medium-Regular.woff);
+  }
