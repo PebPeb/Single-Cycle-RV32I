@@ -16,17 +16,17 @@ def add_navbar(app: Sphinx, pagename: str, templatename: str, context, doctree) 
           <div class="tool-bar-title">Bryce Keen</div>
         </li>
         <li style="margin-left: auto;">
-          <a src="/" style="text-decoration: none;">
+          <a href="/" style="text-decoration: none;">
             <div class="link-container">Home</div>
           </a>
          </li>
         <li>
-          <a src="/about" style="text-decoration: none;">
+          <a href="../../about" style="text-decoration: none;">
             <div class="link-container">About</div>
           </a>
         </li>
         <li>
-          <a src="/contact" style="text-decoration: none;">
+          <a href="/contact" style="text-decoration: none;">
             <div class="link-container">Contact</div>
           </a>
         </li>

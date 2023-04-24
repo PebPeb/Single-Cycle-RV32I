@@ -51,6 +51,9 @@ exclude_patterns = []
 
 html_show_sphinx = False
 html_show_sourcelink = False
+master_doc = 'Single-Cycle-RV32I'
+
+
 #html_theme = 'sphinx_rtd_theme'         # Standard Theme
 html_theme = 'sphinx_rtd_theme_navbar'
 html_theme_path = [os.path.abspath('_themes')]
