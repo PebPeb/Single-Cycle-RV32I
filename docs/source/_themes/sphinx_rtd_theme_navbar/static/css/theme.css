@@ -6488,7 +6488,7 @@ footer span.commit code {
 
     .wy-nav-side {
         /*left: -300px*/
-        width: 300px;
+        width: 0px;
     }
 
     .wy-nav-side.shift {
