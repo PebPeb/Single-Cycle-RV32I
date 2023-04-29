@@ -26,7 +26,7 @@ sys.path.append(os.path.abspath('extensions'))
 project = 'Single-Cycle-RV32I'
 copyright = '2023, Bryce Keen'
 author = 'Bryce Keen'
-release = '1.0.4'
+release = '1.0.3'
 version = release
 
 # -- General configuration ---------------------------------------------------

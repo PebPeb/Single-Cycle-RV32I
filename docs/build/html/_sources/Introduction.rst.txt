@@ -1,10 +1,6 @@
-.. Single-Cycle-RV32I documentation master file, created by
-   sphinx-quickstart on Sun Apr  9 09:28:01 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Introduction
-============
+===============
+1. Introduction
+===============
 
 The Single-Cycle-RV32I is designed to be a staring point for people interested in getting into computer architecture. This project is one of my first attempt at designing a CPU with the intent to build off of it. This design is meant to build a better understanding of the RISC-V ISA and lead into more complicated designs.
 
@@ -15,9 +11,16 @@ This project implements majority of the instructions from the base integer instr
 .. note::
    This project is under active development.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Table of Contents
+--------------
+What to Expect
+--------------
 
-   Introduction
-   Chapters/Chapter1
+What should you expect when reading this documentation? I plan to outline the functionality of my specific implementation of the RISC-V instruction set. There are many different ways to do this, but I did it the easiest way I could thing of. Hints why I recommend this just as a beginner project. 
+
+
+.. figure:: assets/Single_Cycle_RV32I_v0.0.3.png
+   
+   RISC-V Single Cycle Datapath
+
+
+Another goal of this project is for me to get a lot more experience with writing. Not only on the technical side of writing but also the educational side as well. As it is important to me that this project be used by beginners.
