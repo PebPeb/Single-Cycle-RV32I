@@ -9,7 +9,12 @@ def add_navbar(app: Sphinx, pagename: str, templatename: str, context, doctree) 
     """
     #context['navbar'] = '<div class="wy-nav-top"; id="navbar" width: 800px; height: 100px; background-color: red;">Testing</div>'
     #context['navbar'] = '<div class="wy-top" style="position: relative; z-index: 400;>Testing</div>'
-    context['navbar'] = """
+    context['navbar'] = """<div id="myNavBar"></div>"""
+    context['navbar_script'] = """<script defer="defer" src="/navbar/navbar.bundle.js"></script>"""
+    
+    
+    
+    """
     <nav class="navbar">
       <ul>
         <li>
