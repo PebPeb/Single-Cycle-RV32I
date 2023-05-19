@@ -1,8 +1,12 @@
 
 
-all:
-	iverilog -o top_tb.out top_tb.v ../../*.v
+all: build launch
+
+build:
+	iverilog -o top_tb.out -DVCD_DUMP=1 top_tb.v ../../*.v
 	vvp top_tb.out
+
+launch:
 	gtkwave top_tb.vcd
 
 clean:
