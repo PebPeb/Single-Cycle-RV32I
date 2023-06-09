@@ -1,0 +1,1 @@
+This is the source code for my home made math libraries. This library is being developed purely for educational purposes.

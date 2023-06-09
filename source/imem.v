@@ -19,11 +19,11 @@ module imem(a, rd);
 	
 	reg [31:0] mem [0:63];
 
-	parameter INITIAL_DATA_PATH = "/home/pigeonlord9000/Desktop/Single-Cycle-RV32I/imem.dat";
+	parameter INITIAL_DATA_PATH = "../../source/imem.dat";
 	
-	initial begin
+	initial
 		$readmemh(INITIAL_DATA_PATH, mem);
-	end
+	
 	
 	assign rd = mem[a[31:2]];
 
