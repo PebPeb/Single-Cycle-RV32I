@@ -3,6 +3,12 @@
 
 This project is an implementation of a Single Cycle CPU utilizing the RISC-V ISA. The design is based off of the RV32I implementation as outlined in the [RISC-V Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf). Therefor making this a 32-bit cpu, written all in **Verilog**. This project was mostly made as a hobby and educational purposes, and I talk more about that and the design process [here on my website](https://brycekeen.com/projects/Single-Cycle-RV32I).
 
+## Architecture
+
+This CPU is based off a Harvard architecture opting for separate instruction and data memory. For simplicity the image below just outlines the Datapath with no control logic.
+
+![Single-Cycle-RV32I Datapath](assets/Single_Cycle_RV32I.png)
+
 ## Requirements
 
 - A general understanding of the RV32I implementation as referenced in the [RISC-V Instruction Set Manual](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf) may help with understanding of this project.
