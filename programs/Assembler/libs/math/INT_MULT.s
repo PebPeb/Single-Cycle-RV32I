@@ -2,7 +2,7 @@
 # By: Bryce Keen    
 # Date: 06/08/2023            
 
-# INT_multiply.s
+# INT_MULT.s
 # ---------------------------------------------------
 #   This lib is for the multiplication of two 32 bit
 # integer values.
