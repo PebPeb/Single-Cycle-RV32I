@@ -16,7 +16,7 @@ module top_tb();
         reset <= 1;
         #4;
         reset <= 0;
-        #220
+        #420
         $finish;
     end
 

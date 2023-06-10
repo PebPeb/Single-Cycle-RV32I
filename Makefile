@@ -1,23 +1,28 @@
 
-# Makefile
+# This is my makefile..... oooooo Spooky Scary! 
 
-ifeq ($(PROGRAM),)										# Check if a value has been inputed for PROGRAM
-PROGRAMS := $(wildcard programs/*)
-$(info Available programs:)
-$(foreach p,$(notdir $(PROGRAMS)), $(info $(p)))
-$(error PROGRAM variable is not set. Please provide a value for PROGRAM.)
-else ifeq ($(wildcard programs/$(PROGRAM)),)			# Check if the program file exists
-PROGRAMS := $(wildcard programs/*)
-$(info Available programs:)
-$(foreach p,$(notdir $(PROGRAMS)), $(info $(p)))
-$(error Program '$(PROGRAM)' does not exist. Please provide a valid program name.)
-endif
+PROGRAM =
+PROGRAM_DIR =
 
-all: pre build
+# Compile 
+ten_times_ten: _ten_times_ten _compile _update_imem simulate clean
+_ten_times_ten:
+	$(eval PROGRAM := ten_times_ten)
+	$(eval PROGRAM_DIR := ./programs/Assembler/ten_times_ten/)
 
-pre:
-	cp programs/$(PROGRAM) imem.dat
+_compile:
+	$(MAKE) -C $(PROGRAM_DIR)
 
-build:
-	$(MAKE) -C ./sims/top/
+_update_imem:
+	cp $(PROGRAM_DIR)$(PROGRAM).hex source/imem.dat
+
+clean:
+	$(MAKE) clean -C $(PROGRAM_DIR)
+	$(MAKE) clean -C sims/top/
+
+re_build_sim:
+	$(MAKE) build -C sims/top/
+
+simulate:
+	$(MAKE) -C sims/top/
 
