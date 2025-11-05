@@ -3,7 +3,8 @@
 //	By: Bryce Keen	
 //	Created: 11/24/2022
 // -------------------------------- //
-//	Last Modified: 01/25/2023
+//	Last Modified: 11/05/2025
+//    - Simplified redundant declarations
 
 //
 //	control_logic.v
@@ -132,6 +133,7 @@ module control_logic(inst, jump, ALUControl, dmemMode,
                     3'b001: begin      // BNE
                     /*  BNE take the branch if registers rs1 and rs2
                     are not equal */
+                        pcSEL       <= (jump == 1'b0) ? 2'b10 : 2'b00;
                         ALUControl  <= 4'b1000;
                     end
                     3'b100: begin      // BLT
@@ -244,42 +246,6 @@ module control_logic(inst, jump, ALUControl, dmemMode,
                     end
                 endcase
 
-                // case (funct3)
-                //     3'b000:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0000; end    // ADD
-                //             7'b0100000: begin ALUControl  <= 4'b0001; end    // SUB
-                //         endcase
-                //     3'b001:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0101; end    // SLL
-                //         endcase
-                //     3'b010:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b1010; end    // SLT
-                //         endcase
-                //     3'b011:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b1001; end    // SLTU
-                //         endcase
-                //     3'b100:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0100; end    // XOR
-                //         endcase
-                //     3'b101:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0110; end    // SRL
-                //             7'b0100000: begin ALUControl  <= 4'b0111; end    // SRA
-                //         endcase
-                //     3'b110:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0011; end    // OR
-                //         endcase
-                //     3'b111:
-                //         case (funct7)
-                //             7'b0000000: begin ALUControl  <= 4'b0010; end    // AND
-                //         endcase
-                // endcase
             /*
                 Instructions are not necessary for Single Cycle Implementations
 
