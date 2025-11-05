@@ -8,6 +8,8 @@ sims/regfile/work/_info
 *.qtl
 *.out
 *.vcd
+*.gtkw
+*.xlsx#
 sims/regfile/work/_vmake
 sims/alu32/work/_vmake
 sims/alu32/work/_info

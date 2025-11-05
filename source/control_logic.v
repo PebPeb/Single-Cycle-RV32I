@@ -54,13 +54,13 @@ module control_logic(inst, jump, ALUControl, dmemMode,
                 begin
                     dmemMode    <= 3'b000;
                     dmemWE      <= 1'b0;
+                    regWE       <= 1'b1;
                     rs1SEL      <= 1'b0;
                     rs2SEL      <= 1'b0;
                     regSEL      <= 2'b10;
                     pcSEL       <= 2'b00;
                     immSEL      <= 3'b000;
                     ALUControl  <= 4'b0000;
-                    regWE       <= 1'b1;
                 end
             7'b0010111:         // AUIPC
 
@@ -114,467 +114,172 @@ module control_logic(inst, jump, ALUControl, dmemMode,
                     immSEL      <= 3'b011;
                     ALUControl  <= 4'b1101;
                 end
-            7'b1100011:
-                begin
-                    case (funct3)
-                        3'b000:     // BEQ
-                            /*  BEQ take the branch if registers rs1 and rs2
-                            are equal */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1000;
-                            end
-                        3'b001:     // BNE
-                            /*  BNE take the branch if registers rs1 and rs2
-                            are not equal */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b0) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1000;
-                            end
-                        3'b100:     // BLT
-                            /*  BLT take the branch if rs1 is less than rs2, using
-                            signed comparison */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1010;
-                            end
-                        3'b101:     // BGE
-                            /* BGE take the branch if rs1 is greater than or equal to rs2, 
-                            using signed comparison */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1100;
-                            end
-                        3'b110:     // BLTU
-                            /*  BLTU take the branch if rs1 is less than rs2, using
-                            unsigned comparison */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1001;
-                            end
-                        3'b111:     // BGEU
-                            /* BGEU take the branch if rs1 is greater than or equal to rs2, 
-                            using unsigned comparison */
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b0;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
-                                immSEL      <= 3'b010;
-                                ALUControl  <= 4'b1011;
-                            end
-                    endcase
-                end
-            7'b0000011:
-                begin
-                    case (funct3)
-                        3'b000:     // LB
-                            begin
-                                dmemMode    <= 3'b110;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b001:     // LH
-                            begin
-                                dmemMode    <= 3'b101;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b010:     // LW
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b100:     // LBU
-                            begin
-                                dmemMode    <= 3'b010;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b101:     // LHU
-                            begin
-                                dmemMode    <= 3'b001;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                    endcase
-                end
-            7'b0100011:
-                begin
-                    case (funct3)
-                        3'b000:     // SB
-                            begin
-                                dmemMode    <= 3'b010;
-                                dmemWE      <= 1'b1;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b001;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b001:     // SH
-                            begin
-                                dmemMode    <= 3'b001;
-                                dmemWE      <= 1'b1;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b001;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b010:     // SW
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b1;
-                                regWE       <= 1'b0;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b00;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b001;
-                                ALUControl  <= 4'b0000;
-                            end
-                    endcase
-                end
-            7'b0010011:
-                begin
-                    case (funct3)
-                        3'b000:     // ADDI
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0000;
-                            end
-                        3'b010:     // SLTI
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b1010;
-                            end
-                        3'b011:     // SLTIU
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b1001;
-                            end
-                        3'b100:     // XORI
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0100;
-                            end
-                        3'b110:     // ORI
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0011;
-                            end
-                        3'b111:     // ANDI
-                            begin
-                                dmemMode    <= 3'b000;
-                                dmemWE      <= 1'b0;
-                                regWE       <= 1'b1;
-                                rs1SEL      <= 1'b0;
-                                rs2SEL      <= 1'b1;
-                                regSEL      <= 2'b01;
-                                pcSEL       <= 2'b00;
-                                immSEL      <= 3'b011;
-                                ALUControl  <= 4'b0010;
-                            end
-                        3'b001:
-                            case (funct7)
-                                7'b0000000:     // SLLI
-                                    begin
-                                        dmemMode    <= 3'b000;
-                                        dmemWE      <= 1'b0;
-                                        regWE       <= 1'b1;
-                                        rs1SEL      <= 1'b0;
-                                        rs2SEL      <= 1'b1;
-                                        regSEL      <= 2'b01;
-                                        pcSEL       <= 2'b00;
-                                        immSEL      <= 3'b011;
-                                        ALUControl  <= 4'b0101;
-                                    end
-                            endcase
-                        3'b101:     
-                            case (funct7)
-                                7'b0000000:     // SRLI
-                                    begin
-                                        dmemMode    <= 3'b000;
-                                        dmemWE      <= 1'b0;
-                                        regWE       <= 1'b1;
-                                        rs1SEL      <= 1'b0;
-                                        rs2SEL      <= 1'b1;
-                                        regSEL      <= 2'b01;
-                                        pcSEL       <= 2'b00;
-                                        immSEL      <= 3'b011;
-                                        ALUControl  <= 4'b0110;
-                                    end
-                                7'b0100000:     // SRAI
-                                    begin
-                                        dmemMode    <= 3'b000;
-                                        dmemWE      <= 1'b0;
-                                        regWE       <= 1'b1;
-                                        rs1SEL      <= 1'b0;
-                                        rs2SEL      <= 1'b1;
-                                        regSEL      <= 2'b01;
-                                        pcSEL       <= 2'b00;
-                                        immSEL      <= 3'b011;
-                                        ALUControl  <= 4'b0111;
-                                    end
-                            endcase
-                    endcase
-                end
-            7'b0110011:
+            7'b1100011: begin   // R-Type
+                dmemMode    <= 3'b000;
+                dmemWE      <= 1'b0;
+                regWE       <= 1'b0;
+                rs1SEL      <= 1'b0;
+                rs2SEL      <= 1'b0;
+                regSEL      <= 2'b00;
+                pcSEL       <= (jump == 1'b1) ? 2'b10 : 2'b00;
+                immSEL      <= 3'b010;
                 case (funct3)
-                    3'b000:
-                        case (funct7)
-                            7'b0000000:     // ADD
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0000;
-                                end
-                            7'b0100000:     // SUB
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0001;
-                                end
-                        endcase
-                    3'b001:
-                        case (funct7)
-                            7'b0000000:     // SLL
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0101;
-                                end
-                        endcase
-                    3'b010:
-                        case (funct7)
-                            7'b0000000:     // SLT
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b1010;
-                                end
-                        endcase
-                    3'b011:
-                        case (funct7)
-                            7'b0000000:     // SLTU
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b1001;
-                                end
-                        endcase
-                    3'b100:
-                        case (funct7)
-                            7'b0000000:     // XOR
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0100;
-                                end
-                        endcase
-                    3'b101:
-                        case (funct7)
-                            7'b0000000:     // SRL
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0110;
-                                end
-                            7'b0100000:     // SRA
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0111;
-                                end
-                        endcase
-                    3'b110:
-                        case (funct7)
-                            7'b0000000:     // OR
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0011;
-                                end
-                        endcase
-                    3'b111:
-                        case (funct7)
-                            7'b0000000:     // AND
-                                begin
-                                    dmemMode    <= 3'b000;
-                                    dmemWE      <= 1'b0;
-                                    regWE       <= 1'b1;
-                                    rs1SEL      <= 1'b0;
-                                    rs2SEL      <= 1'b0;
-                                    regSEL      <= 2'b01;
-                                    pcSEL       <= 2'b00;
-                                    immSEL      <= 3'b000;
-                                    ALUControl  <= 4'b0010;
-                                end
-                        endcase
+                    3'b000: begin      // BEQ
+                    /*  BEQ take the branch if registers rs1 and rs2
+                    are equal */
+                        ALUControl  <= 4'b1000;
+                    end
+                    3'b001: begin      // BNE
+                    /*  BNE take the branch if registers rs1 and rs2
+                    are not equal */
+                        ALUControl  <= 4'b1000;
+                    end
+                    3'b100: begin      // BLT
+                    /*  BLT take the branch if rs1 is less than rs2, using
+                    signed comparison */
+                        ALUControl  <= 4'b1010;
+                    end
+                    3'b101: begin      // BGE
+                    /* BGE take the branch if rs1 is greater than or equal to rs2, 
+                    using signed comparison */
+                        ALUControl  <= 4'b1100;
+                    end 
+                    3'b110: begin ALUControl  <= 4'b1001; end      // BLTU
+                    /*  BLTU take the branch if rs1 is less than rs2, using
+                    unsigned comparison */ 
+                    3'b111: begin ALUControl  <= 4'b1011; end      // BGEU
+                    /* BGEU take the branch if rs1 is greater than or equal to rs2, 
+                    using unsigned comparison */
                 endcase
+                end
+            7'b0000011: begin
+                dmemWE      <= 1'b0;
+                regWE       <= 1'b1;
+                rs1SEL      <= 1'b0;
+                rs2SEL      <= 1'b1;
+                regSEL      <= 2'b00;
+                pcSEL       <= 2'b00;
+                immSEL      <= 3'b011;
+                ALUControl  <= 4'b0000;
+                case (funct3)
+                    3'b000: begin dmemMode    <= 3'b110; end    // LB
+                    3'b001: begin dmemMode    <= 3'b101; end    // LH
+                    3'b010: begin dmemMode    <= 3'b000; end    // LW
+                    3'b100: begin dmemMode    <= 3'b010; end    // LBU
+                    3'b101: begin dmemMode    <= 3'b001; end    // LHU            
+                endcase
+                end
+            7'b0100011: begin
+                dmemWE      <= 1'b1;
+                regWE       <= 1'b0;
+                rs1SEL      <= 1'b0;
+                rs2SEL      <= 1'b1;
+                regSEL      <= 2'b00;
+                pcSEL       <= 2'b00;
+                immSEL      <= 3'b001;
+                ALUControl  <= 4'b0000;
+                case (funct3)
+                    3'b000: begin dmemMode    <= 3'b010; end    // SB
+                    3'b001: begin dmemMode    <= 3'b001; end    // SH
+                    3'b010: begin dmemMode    <= 3'b000; end    // SW
+                endcase
+                end
+            7'b0010011: begin
+                dmemMode    <= 3'b000;
+                dmemWE      <= 1'b0;
+                regWE       <= 1'b1;
+                rs1SEL      <= 1'b0;
+                rs2SEL      <= 1'b1;
+                regSEL      <= 2'b01;
+                pcSEL       <= 2'b00;
+                immSEL      <= 3'b011;
+                case (funct3)
+                    3'b000: begin ALUControl  <= 4'b0000; end    // ADDI
+                    3'b010: begin ALUControl  <= 4'b1010; end    // SLTI
+                    3'b011: begin ALUControl  <= 4'b1001; end    // SLTIU
+                    3'b100: begin ALUControl  <= 4'b0100; end    // XORI
+                    3'b110: begin ALUControl  <= 4'b0011; end    // ORI
+                    3'b111: begin ALUControl  <= 4'b0010; end    // ANDI
+                    3'b001: begin
+                        case (funct7)
+                            7'b0000000: begin ALUControl  <= 4'b0101; end    // SLLI
+                        endcase
+                    end
+                    3'b101: begin     
+                        case (funct7)
+                            7'b0000000: begin ALUControl  <= 4'b0110; end    // SRLI
+                            7'b0100000: begin ALUControl  <= 4'b0111; end    // SRAI
+                        endcase
+                    end
+                endcase
+                end
+            7'b0110011: begin
+                dmemMode    <= 3'b000;
+                dmemWE      <= 1'b0;
+                regWE       <= 1'b1;
+                rs1SEL      <= 1'b0;
+                rs2SEL      <= 1'b0;
+                regSEL      <= 2'b01;
+                pcSEL       <= 2'b00;
+                immSEL      <= 3'b000;
+                
+                case (funct7)
+                    7'b0000000: begin
+                        case (funct3)
+                            3'b000: begin ALUControl  <= 4'b0000; end    // ADD
+                            3'b001: begin ALUControl  <= 4'b0101; end    // SLL
+                            3'b010: begin ALUControl  <= 4'b1010; end    // SLT
+                            3'b011: begin ALUControl  <= 4'b1001; end    // SLTU
+                            3'b100: begin ALUControl  <= 4'b0100; end    // XOR
+                            3'b101: begin ALUControl  <= 4'b0110; end    // SRL
+                            3'b110: begin ALUControl  <= 4'b0011; end    // OR
+                            3'b111: begin ALUControl  <= 4'b0010; end    // AND
+                        endcase
+                    end
+                    7'b0100000: begin
+                        case (funct3)
+                            3'b000: begin ALUControl  <= 4'b0001; end    // SUB
+                            3'b101: begin ALUControl  <= 4'b0111; end    // SRA
+                        endcase
+                    end
+                endcase
+
+                // case (funct3)
+                //     3'b000:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0000; end    // ADD
+                //             7'b0100000: begin ALUControl  <= 4'b0001; end    // SUB
+                //         endcase
+                //     3'b001:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0101; end    // SLL
+                //         endcase
+                //     3'b010:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b1010; end    // SLT
+                //         endcase
+                //     3'b011:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b1001; end    // SLTU
+                //         endcase
+                //     3'b100:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0100; end    // XOR
+                //         endcase
+                //     3'b101:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0110; end    // SRL
+                //             7'b0100000: begin ALUControl  <= 4'b0111; end    // SRA
+                //         endcase
+                //     3'b110:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0011; end    // OR
+                //         endcase
+                //     3'b111:
+                //         case (funct7)
+                //             7'b0000000: begin ALUControl  <= 4'b0010; end    // AND
+                //         endcase
+                // endcase
             /*
                 Instructions are not necessary for Single Cycle Implementations
 
@@ -601,7 +306,8 @@ module control_logic(inst, jump, ALUControl, dmemMode,
 					3'b110:					// CSRRSI
 					3'b111:					// CSRRCI
 				endcase
-            */    
+            */  
+            end  
             default:
                 begin
                     dmemMode    <= 3'b000;
